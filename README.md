@@ -45,11 +45,13 @@ HTML"-Block** oder ein **Elementor „HTML"-Widget** einfügen. Kein Customizer-
 
 ## Wichtige Hinweise
 
-### Nicht den klassischen Text-/Visual-Editor verwenden
-Der normale WordPress-Editor **entfernt `<style>`- und `<script>`-Blöcke beim Speichern**.
-Genau deshalb sah ein früherer Einbauversuch ungestylt aus. Bitte ausschließlich einen
-Custom-HTML-Block (Gutenberg), ein Elementor-HTML-Widget oder ein Code-Snippet-Plugin
-(z.B. WPCode) verwenden.
+### Hinweis zu `<style>` und `<script>`
+Nur der Vollständigkeit halber: Je nach Editor und Konfiguration kann es vorkommen, dass
+WordPress `<style>`- und `<script>`-Blöcke beim Speichern herausfiltert. Sollte das
+Formular also ungestylt erscheinen oder die Interesse-Validierung nicht greifen, wäre das
+die naheliegendste Ursache. Ein Custom-HTML-Block (Gutenberg), ein Elementor-HTML-Widget
+oder ein Code-Snippet-Plugin sind hier erfahrungsgemäß unkritisch — du kennst die Instanz
+am besten und wählst den Weg, der in eurem Setup üblich ist.
 
 ### Google Fonts (nur Weg B relevant)
 Die erste Zeile in `vonkunhardt-form-embed.html` lädt Montserrat + Playfair Display von
