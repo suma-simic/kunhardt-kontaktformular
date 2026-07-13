@@ -7,8 +7,11 @@ komplett fertig gebaut und getestet — es muss nur noch in die WordPress-Seite 
 **Live-Vorschau (so soll es am Ende aussehen):**
 https://kunhardt-kontaktformular-test.netlify.app
 
-**Zielseite:** https://www.vonkunhardt.de/kontaktformular/ (existiert bereits, dort den
-aktuellen Inhalt ersetzen — oder eine andere Seite nach Absprache).
+**Zielseite:** https://www.vonkunhardt.de/contact/ — dort soll das Formular eingebunden
+werden. Darüber hinaus kann es überall dort eingesetzt werden, wo es thematisch passt
+oder als Call-to-Action sinnvoll ist (z.B. auf Angebots- oder Landingpages) — das CSS
+ist über den Wrapper gescopt und kommt sich mit dem restlichen Seiten-Styling nicht
+in die Quere.
 
 ---
 
