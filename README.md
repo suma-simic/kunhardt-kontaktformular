@@ -74,8 +74,13 @@ anderen Pflichtfelder laufen über natives HTML5 `required`. Falls der verwendet
 
 ### Weiterleitung nach dem Absenden (optional)
 Aktuell zeigt Zoho nach dem Absenden seine Standard-Bestätigungsseite. Soll stattdessen
-auf eine Danke-Seite der Website weitergeleitet werden, die gewünschte URL in das
-Hidden-Feld `zf_redirect_url` eintragen (steht im HTML direkt nach dem `<form>`-Tag).
+auf eine Danke-Seite der Website weitergeleitet werden, gibt es zwei Wege:
+
+1. **Am einfachsten:** Uns nur die URL der Danke-Seite schicken — wir hinterlegen die
+   Weiterleitung dann direkt in Zoho Forms, am HTML muss nichts geändert werden.
+2. Alternativ die gewünschte URL in das Hidden-Feld `zf_redirect_url` eintragen
+   (steht im HTML direkt nach dem `<form>`-Tag).
+
 Bitte vorher kurz mit uns abstimmen.
 
 ### Bitte nichts an den Feld-Namen ändern
