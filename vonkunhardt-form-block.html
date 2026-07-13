@@ -1,0 +1,103 @@
+<div class="vk-form-wrap">
+<form
+  class="vk-form"
+  action="https://forms.zohopublic.eu/vonkunhardtakademie/form/IhreAnfrageandievonKunhardtAkademie/formperma/bAH4HVvQq-fsCsFJejZ1_NeENddr9qVVLLzgHK8dRO4/htmlRecords/submit"
+  name="form"
+  method="POST"
+  accept-charset="UTF-8"
+  enctype="multipart/form-data"
+  id="form">
+
+  <input type="hidden" name="zf_referrer_name" value="">
+  <input type="hidden" name="zf_redirect_url" value="">
+  <input type="hidden" name="zc_gad" value="">
+
+  <h2>Kontaktformular</h2>
+  <p class="vk-desc">Schreiben Sie uns, wir melden uns zeitnah persönlich bei Ihnen.</p>
+
+  <div class="vk-field">
+    <label for="vk-anrede">Anrede<span class="vk-req">*</span></label>
+    <select id="vk-anrede" name="Dropdown" checktype="c1" required>
+      <option value="-Select-">— auswählen —</option>
+      <option value="Herr">Herr</option>
+      <option value="Frau">Frau</option>
+    </select>
+    <p id="Dropdown_error" class="vk-error">Bitte Anrede auswählen.</p>
+  </div>
+
+  <div class="vk-field">
+    <label>Vor- und Nachname<span class="vk-req">*</span></label>
+    <div class="vk-row">
+      <input type="text" name="Name_First" maxlength="255" fieldType="7" placeholder="Vorname" required>
+      <input type="text" name="Name_Last" maxlength="255" fieldType="7" placeholder="Nachname" required>
+    </div>
+  </div>
+
+  <div class="vk-field">
+    <label for="vk-email">E-Mail-Adresse<span class="vk-req">*</span></label>
+    <input id="vk-email" type="email" name="Email" checktype="c5" maxlength="255" fieldType="9" placeholder="ihre@email.de" required>
+  </div>
+
+  <div class="vk-field">
+    <label>Telefon<span class="vk-req">*</span></label>
+    <div class="vk-phone">
+      <input class="vk-code" type="text" compname="PhoneNumber_countrycodeval" name="PhoneNumber_countrycodeval" checktype="c7" maxlength="10" phoneFormat="1" isCountryCodeEnabled="true" id="international_PhoneNumber_countrycodeval" valType="code" placeholder="+49" required>
+      <input class="vk-number" type="text" compname="PhoneNumber" name="PhoneNumber_countrycode" maxlength="20" checktype="c7" phoneFormat="1" isCountryCodeEnabled="true" fieldType="11" id="international_PhoneNumber_countrycode" valType="number" phoneFormatType="1" placeholder="Telefonnummer" required>
+    </div>
+  </div>
+
+  <div class="vk-field">
+    <label>Ich interessiere mich für<span class="vk-req">*</span> <span class="vk-optional">(Mehrfachauswahl)</span></label>
+    <div class="vk-checkgrid" id="vk-checkgrid">
+      <label><input type="checkbox" name="Checkbox" value="Ausbildung zum Business-Coach"> Ausbildung zum Business-Coach</label>
+      <label><input type="checkbox" name="Checkbox" value="Ausbildung zum (Sport-)Mental-Coach"> Ausbildung zum (Sport-)Mental-Coach</label>
+      <label><input type="checkbox" name="Checkbox" value="Speaker Skills / Rhetorik &amp; Bühnenpräsenz"> Speaker Skills / Rhetorik &amp; Bühnenpräsenz</label>
+      <label><input type="checkbox" name="Checkbox" value="Mentoring (persönliche Begleitung)"> Mentoring (persönliche Begleitung)</label>
+      <label><input type="checkbox" name="Checkbox" value="Buchmentoring (eigenes Buch schreiben)"> Buchmentoring (eigenes Buch schreiben)</label>
+      <label><input type="checkbox" name="Checkbox" value="Masterclass Mentalgiganten"> Masterclass Mentalgiganten</label>
+      <label><input type="checkbox" name="Checkbox" value="Einzelcoaching / Persönliche Beratung"> Einzelcoaching / Persönliche Beratung</label>
+      <label><input type="checkbox" name="Checkbox" value="Keynote / Vortrag für mein Event"> Keynote / Vortrag für mein Event</label>
+      <label><input type="checkbox" name="Checkbox" value="Führungskräfte-Training (Unternehmen/Teams)"> Führungskräfte-Training (Unternehmen/Teams)</label>
+      <label><input type="checkbox" name="Checkbox" value="Achtsamkeit &amp; Stressmanagement"> Achtsamkeit &amp; Stressmanagement</label>
+      <label><input type="checkbox" name="Checkbox" value="Noch unklar / allgemeine Beratung"> Noch unklar / allgemeine Beratung</label>
+    </div>
+    <p id="Checkbox_error" class="vk-error">Bitte mindestens ein Interesse wählen.</p>
+  </div>
+
+  <div class="vk-field">
+    <label for="vk-msg">Ihre Nachricht <span class="vk-optional">(optional)</span></label>
+    <textarea id="vk-msg" name="MultiLine" maxlength="65535" placeholder="Ihr Anliegen, Ihre Frage oder eine kurze Vorstellung..."></textarea>
+  </div>
+
+  <div class="vk-terms">
+    <input id="vk-terms" type="checkbox" name="TermsConditions" required>
+    <label for="vk-terms" style="margin:0; font-weight:400;">
+      Ich habe die <a href="https://www.vonkunhardt.de/datenschutz/" target="_blank" rel="noopener noreferrer">Datenschutzerklärung</a> gelesen und bin damit einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert und verarbeitet werden.<span class="vk-req">*</span>
+    </label>
+  </div>
+
+  <button type="submit">Anfrage senden →</button>
+</form>
+</div>
+
+<script>
+(function(){
+  var form = document.getElementById('form');
+  if (!form) return;
+  var grid = document.getElementById('vk-checkgrid');
+  var errorMsg = document.getElementById('Checkbox_error');
+  if (!grid || !errorMsg) return;
+  function checkedCount(){ return grid.querySelectorAll('input[type="checkbox"]:checked').length; }
+  function clearError(){ grid.classList.remove('vk-invalid'); errorMsg.style.display = 'none'; }
+  grid.addEventListener('change', clearError);
+  form.addEventListener('submit', function(e){
+    if (checkedCount() === 0) {
+      e.preventDefault();
+      e.stopPropagation();
+      grid.classList.add('vk-invalid');
+      errorMsg.style.display = 'block';
+      grid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
+})();
+</script>

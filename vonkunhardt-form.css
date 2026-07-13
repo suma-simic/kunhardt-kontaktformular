@@ -1,0 +1,94 @@
+/* von Kunhardt Akademie - Kontaktformular CSS
+   Einfuegen unter: Design -> Customizer -> Zusaetzliches CSS */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+.vk-form-wrap { max-width: 640px; margin: 0 auto; padding: 0; }
+.vk-form { background: #FFFFFF; padding: 40px 32px; border-radius: 14px;
+  box-shadow: 0 6px 28px rgba(16,48,69,.08);
+  font-family: "Montserrat", -apple-system, "Segoe UI", sans-serif; color: #32373c; }
+.vk-form * { box-sizing: border-box; }
+.vk-form h2 { font-family: "Playfair Display", Georgia, serif; font-weight: 700;
+  font-size: 28px; line-height: 1.2; color: #103045; margin: 0 0 8px; }
+.vk-form .vk-desc { color: #6b7884; font-size: 15px; line-height: 1.5; margin: 0 0 30px; }
+.vk-form .vk-field { margin-bottom: 20px; }
+.vk-form label { display: block; font-weight: 600; font-size: 14px;
+  color: #103045; margin-bottom: 6px; }
+.vk-form .vk-req { color: #2bb9c4; font-weight: 700; margin-left: 2px; }
+.vk-form .vk-optional { font-weight: 400; color: #7a8893; font-size: 13px; }
+.vk-form input[type="text"],
+.vk-form input[type="email"],
+.vk-form select,
+.vk-form textarea {
+  width: 100% !important; font: inherit; font-size: 15px; color: #32373c;
+  background: #FFFFFF; border: 1px solid #cdd7df; border-radius: 8px;
+  padding: 11px 14px; transition: border-color .15s, box-shadow .15s;
+  -webkit-appearance: none; appearance: none;
+}
+.vk-form input:focus, .vk-form select:focus, .vk-form textarea:focus {
+  outline: none; border-color: #54d8e1; box-shadow: 0 0 0 3px rgba(84,216,225,.25);
+}
+.vk-form input::placeholder, .vk-form textarea::placeholder { color: #9aa7b1; }
+.vk-form select { background-image:
+  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%2354d8e1' d='M6 8L0 0h12z'/></svg>");
+  background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+.vk-form .vk-row { display: flex; gap: 12px; }
+.vk-form .vk-row > * { flex: 1; min-width: 0; }
+.vk-form .vk-phone { display: flex; gap: 12px; }
+.vk-form .vk-phone .vk-code { flex: 0 0 96px; }
+.vk-form .vk-phone .vk-number { flex: 1; }
+.vk-form textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
+
+/* Interesse-Checkbox-Gruppe */
+.vk-form .vk-checkgrid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 16px;
+  padding: 14px 16px; background: #f6fbfd; border: 1px solid #def2fb; border-radius: 8px;
+  transition: border-color .15s, background .15s; }
+.vk-form .vk-checkgrid.vk-invalid { border-color: #C0392B; background: #FDF3F1; }
+.vk-form .vk-checkgrid label {
+  display: flex; align-items: center; gap: 10px; margin: 0; font-weight: 400;
+  font-size: 14px; color: #32373c; cursor: pointer; line-height: 1.3; }
+.vk-form .vk-checkgrid input[type="checkbox"] {
+  width: 18px; height: 18px; margin: 0; accent-color: #54d8e1; cursor: pointer; flex-shrink: 0; }
+
+/* Datenschutz */
+.vk-form .vk-terms { display: flex; align-items: flex-start; gap: 10px;
+  background: #f6fbfd; padding: 14px 16px; border-radius: 8px;
+  font-size: 13px; color: #54595F; line-height: 1.5; margin-bottom: 24px; }
+.vk-form .vk-terms input[type="checkbox"] { margin-top: 3px; flex-shrink: 0;
+  width: 16px; height: 16px; accent-color: #54d8e1; }
+.vk-form .vk-terms a { color: #2bb9c4; text-decoration: underline; }
+.vk-form .vk-error { display: none; color: #C0392B; font-size: 13px; margin-top: 4px; }
+
+/* Submit-Button: 1:1 wie theme_button.color1 der Website, inkl. originalem
+   Hover-Effekt (aufpoppender innerer Tuerkis-Rahmen; Button bleibt transparent,
+   Text bleibt Navy) */
+.vk-form button[type="submit"] {
+  display: inline-block; width: auto !important; background-color: transparent; color: #103045;
+  border: 2px solid #54d8e1; border-radius: 0;
+  font-family: "Montserrat", sans-serif; font-size: 14px; font-weight: 600;
+  letter-spacing: 0.1em; line-height: 1; text-transform: uppercase;
+  padding: 21px 30px; position: relative; cursor: pointer; outline: none;
+  transition: all 0.2s ease 0s; }
+.vk-form button[type="submit"]::after {
+  content: ""; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px;
+  border: 4px solid #54d8e1; opacity: 0; pointer-events: none;
+  transition: all 0.2s ease 0s; }
+.vk-form button[type="submit"]:hover,
+.vk-form button[type="submit"]:focus,
+.vk-form button[type="submit"]:active {
+  background-color: transparent; border-color: #54d8e1; color: #103045; opacity: 1; }
+.vk-form button[type="submit"]:hover::after,
+.vk-form button[type="submit"]:focus::after,
+.vk-form button[type="submit"]:active::after {
+  top: -2px; left: -2px; right: -2px; bottom: -2px; opacity: 1; }
+@media (min-width: 1200px) {
+  .vk-form button[type="submit"] { padding: 31px 45px; }
+}
+
+@media (max-width: 520px) {
+  .vk-form { padding: 28px 20px; }
+  .vk-form h2 { font-size: 24px; }
+  .vk-form .vk-row, .vk-form .vk-phone { flex-direction: column; gap: 12px; }
+  .vk-form .vk-phone .vk-code { flex: 1; }
+  .vk-form .vk-checkgrid { grid-template-columns: 1fr; }
+}
