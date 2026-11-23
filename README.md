@@ -6,11 +6,12 @@ Unyson-Textblock `[kunhardt_kontaktformular]`. Die produktive Registrierung
 steht in der `functions.php` des Finvision-Child-Themes. Die Quelle liegt in
 [`kunhardt-kontaktformular-shortcode.php`](kunhardt-kontaktformular-shortcode.php).
 [`vonkunhardt-form-wordpress.html`](vonkunhardt-form-wordpress.html) ist die
-entsprechende HTML-Vorschau. Das Formular nutzt Felder und Button des Finvision-Themes. Die Telefonnummer
-hat eine integrierte Länderwahl mit Deutschland (+49, vorausgewählt) und Österreich
-(+43). Beim Tippen oder Einfügen von `+49`, `+43`, `0049` oder `0043`
-wechselt die Flagge sofort. Die Rufnummer lässt sich direkt weitertippen. Das Skript
-übergibt Vorwahl und nationale Nummer getrennt an Zoho Forms.
+entsprechende HTML-Vorschau. Das Formular nutzt Felder und Button des Finvision-Themes.
+Das Telefonfeld bietet die 17 in Zoho Forms zugelassenen Länder und startet mit
+Deutschland (+49). Beim Tippen oder Einfügen einer zugelassenen Nummer mit `+` oder
+`00` wechselt die Flagge sofort. Das Skript übergibt Vorwahl und nationale Nummer
+getrennt an Zoho Forms. Bei italienischen Festnetznummern bleibt die führende Null
+erhalten. [Flaggen](https://flagpedia.net/download)
 
 Der Shortcode lädt CSS und JavaScript über das Child-Theme. Die Formularhöhe
 folgt dem Inhalt, auch wenn eine Fehlermeldung erscheint. Nach Änderungen am
@@ -94,7 +95,7 @@ Absprache angepasst werden, die technischen Attribute nicht.
 
 - [ ] In der Desktop-Vorschau prüfen, ob Felder und Button wie im Website-Theme aussehen.
 - [ ] Seite auf dem Smartphone ansehen: einspaltig, Interesse-Liste untereinander
-- [ ] Deutschland und Österreich wählen, danach eine vollständige Nummer mit +49 oder +43 einfügen. Vorwahl und Rufnummer in den Formulardaten prüfen.
+- [ ] Die Länderwahl prüfen und eine Schweizer Nummer mit `0041` einfügen. Vorwahl, Flagge und Rufnummer in den Formulardaten prüfen. Bei einer italienischen Festnetznummer die führende Null prüfen.
 - [ ] Absenden ohne Eingaben → Browser meldet Pflichtfelder an
 - [ ] Alles ausfüllen, aber kein Interesse anhaken → rote Meldung an der Interesse-Box
 - [ ] **Kein Test-Absenden nötig** — den finalen Funktionstest bis ins CRM machen wir

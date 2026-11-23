@@ -42,12 +42,27 @@
     <label for="vk-phone-number">Telefon<span class="vk-req">*</span></label>
     <div class="vk-phone-input">
       <select class="vk-phone-country select2-vk-native" name="PhoneNumber_countrycodeval" aria-label="Ländervorwahl" autocomplete="tel-country-code" required>
-        <option value="+49" selected>🇩🇪 Deutschland +49</option>
-        <option value="+43">🇦🇹 Österreich +43</option>
+        <option value="+49" data-country="de" data-trunk-prefix="0" selected>🇩🇪 Deutschland +49</option>
+        <option value="+43" data-country="at" data-trunk-prefix="0">🇦🇹 Österreich +43</option>
+        <option value="+41" data-country="ch" data-trunk-prefix="0">🇨🇭 Schweiz +41</option>
+        <option value="+32" data-country="be" data-trunk-prefix="0">🇧🇪 Belgien +32</option>
+        <option value="+387" data-country="ba" data-trunk-prefix="0">🇧🇦 Bosnien und Herzegowina +387</option>
+        <option value="+45" data-country="dk">🇩🇰 Dänemark +45</option>
+        <option value="+33" data-country="fr" data-trunk-prefix="0">🇫🇷 Frankreich +33</option>
+        <option value="+39" data-country="it">🇮🇹 Italien +39</option>
+        <option value="+385" data-country="hr" data-trunk-prefix="0">🇭🇷 Kroatien +385</option>
+        <option value="+423" data-country="li" data-trunk-prefix="0">🇱🇮 Liechtenstein +423</option>
+        <option value="+352" data-country="lu">🇱🇺 Luxemburg +352</option>
+        <option value="+31" data-country="nl" data-trunk-prefix="0">🇳🇱 Niederlande +31</option>
+        <option value="+48" data-country="pl">🇵🇱 Polen +48</option>
+        <option value="+421" data-country="sk" data-trunk-prefix="0">🇸🇰 Slowakei +421</option>
+        <option value="+386" data-country="si" data-trunk-prefix="0">🇸🇮 Slowenien +386</option>
+        <option value="+420" data-country="cz">🇨🇿 Tschechien +420</option>
+        <option value="+36" data-country="hu" data-trunk-prefix="06">🇭🇺 Ungarn +36</option>
       </select>
       <span class="vk-phone-prefix" aria-hidden="true">
-        <span class="vk-phone-de">+49</span>
-        <span class="vk-phone-at">+43</span>
+        <span class="vk-phone-flag" data-country="de"></span>
+        <span class="vk-phone-code">+49</span>
       </span>
       <input id="vk-phone-number" class="form-control vk-phone-number" type="tel" name="PhoneNumber_countrycode" autocomplete="tel-national" maxlength="40" placeholder="Telefonnummer" required>
     </div>
@@ -114,24 +129,41 @@
 
   const form = phone.form;
   const country = form.elements.namedItem('PhoneNumber_countrycodeval');
-
-  const supportedPrefixes = Array.from(country.options, (option) => option.value);
+  const field = country.closest('.vk-phone-input');
+  const flag = field.querySelector('.vk-phone-flag');
+  const code = field.querySelector('.vk-phone-code');
+  const countryOptions = Array.from(country.options);
   const phoneFormat = /^\+?[0-9\s().-]+$/;
+
+  function renderCountry() {
+    const selected = country.selectedOptions[0];
+    flag.dataset.country = selected.dataset.country;
+    code.textContent = selected.value;
+  }
 
   function splitPhone(value) {
     const compact = value.replace(/[\s().-]/g, '').replace(/^00/, '+');
-    const prefix = supportedPrefixes.find((code) => compact.startsWith(code));
-    return { prefix, number: prefix ? compact.slice(prefix.length) : compact };
+    const option = countryOptions.find((item) => compact.startsWith(item.value));
+    return { option, number: option ? compact.slice(option.value.length) : compact };
   }
+
+  renderCountry();
+  field.classList.add('vk-phone-ready');
+
+  country.addEventListener('change', () => {
+    phone.setCustomValidity('');
+    renderCountry();
+  });
 
   phone.addEventListener('input', (event) => {
     phone.setCustomValidity('');
     const typed = phone.value.trim();
     if (event.isComposing || !phoneFormat.test(typed)) return;
 
-    const { prefix, number } = splitPhone(typed);
-    if (prefix) {
-      country.value = prefix;
+    const { option, number } = splitPhone(typed);
+    if (option) {
+      country.value = option.value;
+      renderCountry();
       phone.value = number;
     }
   });
@@ -140,19 +172,20 @@
     if (event.defaultPrevented) return;
 
     const typed = phone.value.trim();
-    const { prefix, number } = splitPhone(typed);
+    const { option, number } = splitPhone(typed);
     let message = '';
 
     if (!phoneFormat.test(typed)) {
-      message = 'Bitte gib eine gültige Telefonnummer ein.';
-    } else if (!prefix && number.startsWith('+')) {
-      message = 'Bitte verwende eine Telefonnummer aus Deutschland (+49) oder Österreich (+43).';
+      message = 'Bitte geben Sie eine gültige Telefonnummer ein.';
+    } else if (!option && number.startsWith('+')) {
+      message = 'Bitte verwenden Sie eine Ländervorwahl aus der Auswahlliste.';
     }
 
-    // Bei DE und AT gehört die nationale Verkehrsausscheidungsziffer 0 nicht hinter die Ländervorwahl.
-    const national = number.replace(/^0/, '');
+    // Nur die nationale Verkehrsausscheidungsziffer des gewählten Landes abtrennen.
+    const { trunkPrefix } = (option || country.selectedOptions[0]).dataset;
+    const national = trunkPrefix && number.startsWith(trunkPrefix) ? number.slice(trunkPrefix.length) : number;
     if (!message && !/^[0-9]{5,15}$/.test(national)) {
-      message = 'Bitte gib nach der Ländervorwahl eine Telefonnummer mit 5 bis 15 Ziffern ein.';
+      message = 'Bitte geben Sie nach der Ländervorwahl 5 bis 15 Ziffern ein.';
     }
 
     if (message) {
@@ -162,8 +195,13 @@
       return;
     }
 
-    if (prefix) country.value = prefix;
+    if (option) {
+      country.value = option.value;
+      renderCountry();
+    }
     phone.value = national;
   });
+
+  window.addEventListener('pageshow', renderCountry);
 })();
 </script>
