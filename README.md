@@ -1,17 +1,21 @@
 # Kontaktformular für vonkunhardt.de (Zoho Forms, gebrandet)
 
-Fertig gestyltes Kontaktformular für die von Kunhardt Akademie, das direkt an Zoho Forms
-sendet und im CRM automatisch Kontakt + Anfrage + Verkaufschance anlegt. Das Formular ist
-komplett fertig gebaut und getestet — es muss nur noch in die WordPress-Seite eingebaut werden.
+Auf der [Startseite](https://www.vonkunhardt.de/#vk-contact-form) und der
+[Kontaktseite](https://www.vonkunhardt.de/contact/#vk-contact-form) steht im
+Unyson-Textblock `[kunhardt_kontaktformular]`. Die produktive Registrierung
+steht in der `functions.php` des Finvision-Child-Themes. Die Quelle liegt in
+[`kunhardt-kontaktformular-shortcode.php`](kunhardt-kontaktformular-shortcode.php).
+[`vonkunhardt-form-wordpress.html`](vonkunhardt-form-wordpress.html) ist die
+entsprechende HTML-Vorschau. Das Formular nutzt Felder und Button des Finvision-Themes. Die Telefonnummer
+hat eine integrierte Länderwahl mit Deutschland (+49, vorausgewählt) und Österreich
+(+43). Beim Tippen oder Einfügen von `+49`, `+43`, `0049` oder `0043`
+wechselt die Flagge sofort. Die Rufnummer lässt sich direkt weitertippen. Das Skript
+übergibt Vorwahl und nationale Nummer getrennt an Zoho Forms.
 
-**Live-Vorschau (so soll es am Ende aussehen):**
-https://kunhardt-kontaktformular-test.netlify.app
-
-**Zielseite:** https://www.vonkunhardt.de/contact/ — dort soll das Formular eingebunden
-werden. Darüber hinaus kann es überall dort eingesetzt werden, wo es thematisch passt
-oder als Call-to-Action sinnvoll ist (z.B. auf Angebots- oder Landingpages) — das CSS
-ist über den Wrapper gescopt und kommt sich mit dem restlichen Seiten-Styling nicht
-in die Quere.
+Der Shortcode lädt CSS und JavaScript über das Child-Theme. Die Formularhöhe
+folgt dem Inhalt, auch wenn eine Fehlermeldung erscheint. Nach Änderungen am
+Shortcode die Seitencaches für Start- und Kontaktseite leeren und beide Seiten
+auf Desktop und Smartphone prüfen.
 
 ---
 
@@ -19,6 +23,8 @@ in die Quere.
 
 | Datei | Zweck |
 |-------|-------|
+| `kunhardt-kontaktformular-shortcode.php` | Produktive Shortcode-Quelle für Finvision Child. |
+| `vonkunhardt-form-wordpress.html` | Selbständige Variante für Vorschautests mit Finvision. |
 | `vonkunhardt-form.css` | Nur das CSS. Kommt in den WordPress-Customizer („Zusätzliches CSS"). |
 | `vonkunhardt-form-block.html` | HTML + JavaScript ohne `<style>`. Kommt in einen Custom-HTML-Block auf der Seite. Gehört zu `vonkunhardt-form.css`. |
 | `vonkunhardt-form-embed.html` | Alles-in-einem-Variante (CSS + HTML + JS in einer Datei). Alternative, falls Weg A nicht gewünscht ist. |
@@ -28,7 +34,7 @@ WordPress muss nichts verarbeiten. Contact Form 7 bleibt unberührt und wird nic
 
 ---
 
-## Einbau — Weg A (empfohlen, robust)
+## Eigenständige Gestaltung — Weg A
 
 1. **CSS hinterlegen:** Kompletten Inhalt von `vonkunhardt-form.css` kopieren und unter
    **Design → Customizer → Zusätzliches CSS** einfügen, speichern/veröffentlichen.
@@ -39,7 +45,7 @@ WordPress muss nichts verarbeiten. Contact Form 7 bleibt unberührt und wird nic
 Fertig. Das CSS ist über den Wrapper `.vk-form` gescopt und beeinflusst nichts anderes
 auf der Seite.
 
-## Einbau — Weg B (Alternative, alles in einem Block)
+## Eigenständige Gestaltung — Weg B
 
 Kompletten Inhalt von `vonkunhardt-form-embed.html` in einen **Gutenberg „Custom
 HTML"-Block** oder ein **Elementor „HTML"-Widget** einfügen. Kein Customizer-Schritt nötig.
@@ -60,8 +66,7 @@ am besten und wählst den Weg, der in eurem Setup üblich ist.
 Die erste Zeile in `vonkunhardt-form-embed.html` lädt Montserrat + Playfair Display von
 `fonts.googleapis.com`. Da das Theme (finvision) diese Fonts bereits nutzt, kann diese
 Zeile in der Regel **ersatzlos gelöscht** werden — das ist wegen DSGVO (Google-Fonts-
-Remote-Einbindung) auch die sauberere Variante. Bei Weg A gibt es keinen Font-Load,
-dort greifen automatisch die Theme-Fonts.
+Remote-Einbindung) auch die sauberere Variante. Bei Weg A steht der Font-Import oben in der CSS-Datei und kann für die Website entfallen.
 
 ### Borlabs Cookie
 Kein Handlungsbedarf. Das Formular ist **kein iFrame**, sondern direkt eingebettetes
@@ -72,16 +77,11 @@ Das kleine Script am Ende prüft, dass mindestens ein „Interesse" angehakt ist
 anderen Pflichtfelder laufen über natives HTML5 `required`. Falls der verwendete Block
 `<script>` filtert: Script separat über ein Code-Snippet-Plugin einbinden.
 
-### Weiterleitung nach dem Absenden (optional)
-Aktuell zeigt Zoho nach dem Absenden seine Standard-Bestätigungsseite. Soll stattdessen
-auf eine Danke-Seite der Website weitergeleitet werden, gibt es zwei Wege:
+### Weiterleitung nach dem Absenden
 
-1. **Am einfachsten:** Uns nur die URL der Danke-Seite schicken — wir hinterlegen die
-   Weiterleitung dann direkt in Zoho Forms, am HTML muss nichts geändert werden.
-2. Alternativ die gewünschte URL in das Hidden-Feld `zf_redirect_url` eintragen
-   (steht im HTML direkt nach dem `<form>`-Tag).
-
-Bitte vorher kurz mit uns abstimmen.
+Zoho Forms leitet nach erfolgreichem Absenden zur Dankeseite der Akademie weiter.
+Die URL steht im Formular unter **Einstellungen → Dankseite und Weiterleitung**.
+[Dankeseite](https://www.vonkunhardt.de/danke-fuer-ihre-anfrage/)
 
 ### Bitte nichts an den Feld-Namen ändern
 Die `name`-Attribute (`Dropdown`, `Name_First`, `Email`, `Checkbox`, …) und die
@@ -92,9 +92,9 @@ Absprache angepasst werden, die technischen Attribute nicht.
 
 ## Checkliste nach dem Einbau
 
-- [ ] Seite auf Desktop ansehen: Formular sieht aus wie die Live-Vorschau (Karte mit
-      Schatten, Navy-Überschrift, türkise Akzente, Button mit Hover-Rahmen-Effekt)
+- [ ] In der Desktop-Vorschau prüfen, ob Felder und Button wie im Website-Theme aussehen.
 - [ ] Seite auf dem Smartphone ansehen: einspaltig, Interesse-Liste untereinander
+- [ ] Deutschland und Österreich wählen, danach eine vollständige Nummer mit +49 oder +43 einfügen. Vorwahl und Rufnummer in den Formulardaten prüfen.
 - [ ] Absenden ohne Eingaben → Browser meldet Pflichtfelder an
 - [ ] Alles ausfüllen, aber kein Interesse anhaken → rote Meldung an der Interesse-Box
 - [ ] **Kein Test-Absenden nötig** — den finalen Funktionstest bis ins CRM machen wir

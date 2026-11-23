@@ -39,10 +39,17 @@
   </div>
 
   <div class="vk-field">
-    <label>Telefon<span class="vk-req">*</span></label>
-    <div class="vk-phone">
-      <input class="vk-code" type="text" compname="PhoneNumber_countrycodeval" name="PhoneNumber_countrycodeval" checktype="c7" maxlength="10" phoneFormat="1" isCountryCodeEnabled="true" id="international_PhoneNumber_countrycodeval" valType="code" placeholder="+49" required>
-      <input class="vk-number" type="text" compname="PhoneNumber" name="PhoneNumber_countrycode" maxlength="20" checktype="c7" phoneFormat="1" isCountryCodeEnabled="true" fieldType="11" id="international_PhoneNumber_countrycode" valType="number" phoneFormatType="1" placeholder="Telefonnummer" required>
+    <label for="vk-phone-number">Telefon<span class="vk-req">*</span></label>
+    <div class="vk-phone-input">
+      <select class="vk-phone-country select2-vk-native" name="PhoneNumber_countrycodeval" aria-label="Ländervorwahl" autocomplete="tel-country-code" required>
+        <option value="+49" selected>🇩🇪 Deutschland +49</option>
+        <option value="+43">🇦🇹 Österreich +43</option>
+      </select>
+      <span class="vk-phone-prefix" aria-hidden="true">
+        <span class="vk-phone-de">+49</span>
+        <span class="vk-phone-at">+43</span>
+      </span>
+      <input id="vk-phone-number" class="form-control vk-phone-number" type="tel" name="PhoneNumber_countrycode" autocomplete="tel-national" maxlength="40" placeholder="Telefonnummer" required>
     </div>
   </div>
 
@@ -98,6 +105,65 @@
       errorMsg.style.display = 'block';
       grid.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
+  });
+})();
+
+(() => {
+  const phone = document.getElementById('vk-phone-number');
+  if (!phone || !phone.form) return;
+
+  const form = phone.form;
+  const country = form.elements.namedItem('PhoneNumber_countrycodeval');
+
+  const supportedPrefixes = Array.from(country.options, (option) => option.value);
+  const phoneFormat = /^\+?[0-9\s().-]+$/;
+
+  function splitPhone(value) {
+    const compact = value.replace(/[\s().-]/g, '').replace(/^00/, '+');
+    const prefix = supportedPrefixes.find((code) => compact.startsWith(code));
+    return { prefix, number: prefix ? compact.slice(prefix.length) : compact };
+  }
+
+  phone.addEventListener('input', (event) => {
+    phone.setCustomValidity('');
+    const typed = phone.value.trim();
+    if (event.isComposing || !phoneFormat.test(typed)) return;
+
+    const { prefix, number } = splitPhone(typed);
+    if (prefix) {
+      country.value = prefix;
+      phone.value = number;
+    }
+  });
+
+  form.addEventListener('submit', (event) => {
+    if (event.defaultPrevented) return;
+
+    const typed = phone.value.trim();
+    const { prefix, number } = splitPhone(typed);
+    let message = '';
+
+    if (!phoneFormat.test(typed)) {
+      message = 'Bitte gib eine gültige Telefonnummer ein.';
+    } else if (!prefix && number.startsWith('+')) {
+      message = 'Bitte verwende eine Telefonnummer aus Deutschland (+49) oder Österreich (+43).';
+    }
+
+    // Bei DE und AT gehört die nationale Verkehrsausscheidungsziffer 0 nicht hinter die Ländervorwahl.
+    const national = number.replace(/^0/, '');
+    if (!message && !/^[0-9]{5,15}$/.test(national)) {
+      message = 'Bitte gib nach der Ländervorwahl eine Telefonnummer mit 5 bis 15 Ziffern ein.';
+    }
+
+    if (message) {
+      event.preventDefault();
+      phone.setCustomValidity(message);
+      phone.reportValidity();
+      return;
+    }
+
+    if (prefix) country.value = prefix;
+    phone.value = national;
   });
 })();
 </script>

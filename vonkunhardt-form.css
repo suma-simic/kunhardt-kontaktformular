@@ -17,6 +17,7 @@
 .vk-form .vk-optional { font-weight: 400; color: #7a8893; font-size: 13px; }
 .vk-form input[type="text"],
 .vk-form input[type="email"],
+.vk-form input[type="tel"],
 .vk-form select,
 .vk-form textarea {
   width: 100% !important; font: inherit; font-size: 15px; color: #32373c;
@@ -33,10 +34,76 @@
   background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
 .vk-form .vk-row { display: flex; gap: 12px; }
 .vk-form .vk-row > * { flex: 1; min-width: 0; }
-.vk-form .vk-phone { display: flex; gap: 12px; }
-.vk-form .vk-phone .vk-code { flex: 0 0 96px; }
-.vk-form .vk-phone .vk-number { flex: 1; }
+
 .vk-form textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
+
+/* Vorwahl und Rufnummer teilen sich die Fläche eines Eingabefelds. */
+.vk-phone-input {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  align-items: stretch;
+}
+.vk-phone-input > .vk-phone-country,
+.vk-phone-input > input.vk-phone-number {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+.vk-phone-input > .vk-phone-prefix { display: none; }
+
+@supports selector(:has(*)) {
+  .vk-phone-input { grid-template-columns: minmax(0, 108px) minmax(0, 1fr); }
+  .vk-phone-input > .vk-phone-country {
+    grid-area: 1 / 1;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .vk-phone-input > input.vk-phone-number {
+    grid-area: 1 / 1 / 2 / 3;
+    padding-inline-start: 122px;
+  }
+  .vk-phone-input > .vk-phone-prefix {
+    grid-area: 1 / 1;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border-inline-end: 1px solid #cdd7df;
+    color: inherit;
+    background: inherit;
+    font-size: inherit;
+    font-weight: 600;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .vk-phone-input > .vk-phone-country:focus-visible + .vk-phone-prefix {
+    outline: 2px solid currentColor;
+    outline-offset: -2px;
+  }
+  .vk-phone-prefix > span { display: inline-flex; align-items: center; gap: 6px; }
+  .vk-phone-prefix > span::before {
+    content: "";
+    width: 1.2em;
+    height: .8em;
+  }
+  .vk-phone-prefix > .vk-phone-de::before {
+    background: linear-gradient(#000 33.33%, #d00 33.33% 66.67%, #ffce00 66.67%);
+  }
+  .vk-phone-prefix > .vk-phone-at::before {
+    background: linear-gradient(#ed2939 33.33%, #fff 33.33% 66.67%, #ed2939 66.67%);
+  }
+  .vk-phone-prefix > .vk-phone-at,
+  .vk-phone-input:has(option[value="+43"]:checked) .vk-phone-de { display: none; }
+  .vk-phone-input:has(option[value="+43"]:checked) .vk-phone-at { display: inline-flex; }
+  .vk-phone-prefix::after {
+    content: "";
+    border-inline: .25em solid transparent;
+    border-top: .3em solid currentColor;
+  }
+}
 
 /* Interesse-Checkbox-Gruppe */
 .vk-form .vk-checkgrid {
@@ -88,7 +155,6 @@
 @media (max-width: 520px) {
   .vk-form { padding: 28px 20px; }
   .vk-form h2 { font-size: 24px; }
-  .vk-form .vk-row, .vk-form .vk-phone { flex-direction: column; gap: 12px; }
-  .vk-form .vk-phone .vk-code { flex: 1; }
+  .vk-form .vk-row { flex-direction: column; gap: 12px; }
   .vk-form .vk-checkgrid { grid-template-columns: 1fr; }
 }
