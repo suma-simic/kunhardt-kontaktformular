@@ -13,6 +13,7 @@
 .vk-form .vk-field { margin-bottom: 20px; }
 .vk-form label { display: block; font-weight: 600; font-size: 14px;
   color: #103045; margin-bottom: 6px; }
+.vk-form label, .vk-form label a { text-transform: none; }
 .vk-form .vk-req { color: #2bb9c4; font-weight: 700; margin-left: 2px; }
 .vk-form .vk-optional { font-weight: 400; color: #7a8893; font-size: 13px; }
 .vk-form input[type="text"],
@@ -133,7 +134,7 @@
   display: inline-block; width: auto !important; background-color: transparent; color: #103045;
   border: 2px solid #54d8e1; border-radius: 0;
   font-family: "Montserrat", sans-serif; font-size: 14px; font-weight: 600;
-  letter-spacing: 0.1em; line-height: 1; text-transform: uppercase;
+  letter-spacing: 0.1em; line-height: 1; text-transform: none;
   padding: 21px 30px; position: relative; cursor: pointer; outline: none;
   transition: all 0.2s ease 0s; }
 .vk-form button[type="submit"]::after {

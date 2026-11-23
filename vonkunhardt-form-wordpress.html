@@ -10,6 +10,13 @@
   text-decoration: underline;
 }
 
+#vk-contact-form label,
+#vk-contact-form label a,
+#vk-contact-form .form-control::placeholder,
+#vk-contact-form button[type="submit"] {
+  text-transform: none;
+}
+
 /* Vorwahl und Rufnummer teilen sich die Fläche eines Eingabefelds. */
 .vk-phone-input {
   display: grid;
@@ -90,7 +97,7 @@
   <input type="hidden" name="zf_redirect_url" value="">
   <input type="hidden" name="zc_gad" value="">
 
-  <p>Schreiben Sie uns, wir melden uns zeitnah persönlich bei Ihnen.</p>
+  <p>Schreiben Sie uns. Wir melden uns zeitnah persönlich bei Ihnen.</p>
 
   <div class="form-group">
     <label for="vk-anrede">Anrede *</label>
@@ -138,25 +145,25 @@
       <div class="col-sm-6">
         <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Ausbildung zum Business-Coach"> Ausbildung zum Business-Coach</label></div>
         <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Ausbildung zum (Sport-)Mental-Coach"> Ausbildung zum (Sport-)Mental-Coach</label></div>
-        <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Speaker Skills / Rhetorik &amp; Bühnenpräsenz"> Speaker Skills / Rhetorik &amp; Bühnenpräsenz</label></div>
+        <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Speaker Skills / Rhetorik &amp; Bühnenpräsenz"> Speaker Skills, Rhetorik und Bühnenpräsenz</label></div>
         <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Mentoring (persönliche Begleitung)"> Mentoring (persönliche Begleitung)</label></div>
         <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Buchmentoring (eigenes Buch schreiben)"> Buchmentoring (eigenes Buch schreiben)</label></div>
-        <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Masterclass Mentalgiganten"> Masterclass Mentalgiganten</label></div>
+        <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Masterclass Mentalgiganten"> Masterclass „Mentalgiganten“</label></div>
       </div>
       <div class="col-sm-6">
-        <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Einzelcoaching / Persönliche Beratung"> Einzelcoaching / Persönliche Beratung</label></div>
-        <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Keynote / Vortrag für mein Event"> Keynote / Vortrag für mein Event</label></div>
-        <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Führungskräfte-Training (Unternehmen/Teams)"> Führungskräfte-Training (Unternehmen/Teams)</label></div>
-        <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Achtsamkeit &amp; Stressmanagement"> Achtsamkeit &amp; Stressmanagement</label></div>
+        <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Einzelcoaching / Persönliche Beratung"> Einzelcoaching / persönliche Beratung</label></div>
+        <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Keynote / Vortrag für mein Event"> Keynote / Vortrag für meine Veranstaltung</label></div>
+        <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Führungskräfte-Training (Unternehmen/Teams)"> Führungskräftetraining (Unternehmen und Teams)</label></div>
+        <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Achtsamkeit &amp; Stressmanagement"> Achtsamkeit und Stressmanagement</label></div>
         <div class="checkbox"><label><input type="checkbox" name="Checkbox" value="Noch unklar / allgemeine Beratung"> Noch unklar / allgemeine Beratung</label></div>
       </div>
     </div>
-    <p id="vk-interest-error" class="text-danger" role="alert" hidden>Bitte mindestens ein Interesse wählen.</p>
+    <p id="vk-interest-error" class="text-danger" role="alert" hidden>Bitte wählen Sie mindestens ein Thema aus.</p>
   </fieldset>
 
   <div class="form-group">
     <label for="vk-msg">Ihre Nachricht (optional)</label>
-    <textarea id="vk-msg" class="form-control" name="MultiLine" rows="5" maxlength="65535" placeholder="Ihr Anliegen, Ihre Frage oder eine kurze Vorstellung..."></textarea>
+    <textarea id="vk-msg" class="form-control" name="MultiLine" rows="5" maxlength="65535" placeholder="Ihr Anliegen, Ihre Frage oder eine kurze Vorstellung"></textarea>
   </div>
 
   <div class="checkbox">
